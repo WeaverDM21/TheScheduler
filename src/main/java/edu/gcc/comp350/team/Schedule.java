@@ -12,7 +12,7 @@ public class Schedule {
     }
 
     public void addCourse(String courseID){
-
+        System.out.println("hi");
     }
 
     public void removeCourse(String courseID){
