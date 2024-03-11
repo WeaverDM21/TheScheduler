@@ -1,4 +1,4 @@
-package org.example;
+package edu.gcc.comp350.team;
 import java.util.ArrayList;
 public class User{
     ArrayList<Schedule> savedSchedules;

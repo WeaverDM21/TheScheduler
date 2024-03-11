@@ -1,4 +1,4 @@
-package org.example;
+package edu.gcc.comp350.team;
 import java.util.ArrayList;
 // I don't like sand. It's coarse and rough and irritating and it gets everywhere.
 public class Search {

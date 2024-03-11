@@ -1,4 +1,4 @@
-package org.example;
+package edu.gcc.comp350.team;
 import java.util.ArrayList;
 public class Schedule {
     private ArrayList<Class> classes;
@@ -12,7 +12,7 @@ public class Schedule {
     }
 
     public void addCourse(String courseID){
-
+        System.out.println("hi");
     }
 
     public void removeCourse(String courseID){
