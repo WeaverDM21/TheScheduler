@@ -1,6 +1,6 @@
 package org.example;
 import java.util.ArrayList;
-
+// I don't like sand. It's coarse and rough and irritating and it gets everywhere.
 public class Search {
     private ArrayList<Class> classes;
     private String curQueryText;
