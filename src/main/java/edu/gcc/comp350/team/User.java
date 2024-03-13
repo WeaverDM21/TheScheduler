@@ -4,7 +4,7 @@ public class User{
     ArrayList<Schedule> savedSchedules;
 
     public User(){
-
+        // stoppppppppppp
     }
 
     public void addSchedule(Schedule schedule){
