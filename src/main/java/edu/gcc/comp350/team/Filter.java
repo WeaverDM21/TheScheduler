@@ -1,4 +1,4 @@
-package org.example;
+package edu.gcc.comp350.team;
 
 public class Filter {
     private String courseName;
