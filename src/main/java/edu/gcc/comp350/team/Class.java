@@ -1,44 +1,43 @@
 package edu.gcc.comp350.team;
 
+import java.util.Arrays;
+
 public class Class {
-    private static String timeOfDay;
-    private String dayOfWeek;
-    private String instructor;
-    private String location;
-    private String department;
-    private String courseID;
-    private String description;
+    private String courseID; // eg COMP350A -- will be unique
     private String courseName;
-    private String section;
+    private int numCredits;
+    private boolean[] daysOfWeek;
+    private int beginTime; // Military Time
+    private int endTime; // Military Time
+    private String instructor;
+    private String department;
 
-    public Class(String timeOfDay, String dayOfWeek, String instructor, String location,
-                 String department, String courseID, String description, String courseName,
-                 String section) {
-        this.timeOfDay = timeOfDay;
-        this.dayOfWeek = dayOfWeek;
-        this.instructor = instructor;
-        this.location = location;
-        this.department = department;
+//    private String description;
+
+
+    public Class(String courseID, String courseName, int numCredits,
+                 boolean[] daysOfWeek, int beginTime, int endTime,
+                 String instructor, String department) {
         this.courseID = courseID;
-        this.description = description;
         this.courseName = courseName;
-        this.section = section;
+        this.numCredits = numCredits;
+        this.daysOfWeek = daysOfWeek;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.instructor = instructor;
+        this.department = department;
     }
 
-    public static String getTimeOfDay() {
-        return timeOfDay;
+    public int getBeginTime() {
+        return beginTime;
     }
 
-    public String getDayOfWeek() {
-        return dayOfWeek;
+    public int getEndTime() {
+        return endTime;
     }
 
     public String getInstructor() {
         return instructor;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public String getDepartment() {
@@ -49,15 +48,46 @@ public class Class {
         return courseID;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String toString() {
+        return "Class{" +
+                "courseID='" + courseID + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", numCredits=" + numCredits +
+                ", daysOfWeek=" + Arrays.toString(daysOfWeek) +
+                ", beginTime=" + beginTime +
+                ", endTime=" + endTime +
+                ", instructor='" + instructor + '\'' +
+                ", department='" + department + '\'' +
+                '}';
     }
 
     public String getCourseName() {
         return courseName;
     }
 
-    public String getSection() {
-        return section;
+    public boolean isSameClass(Class other){
+        return this.courseID.equals(other.courseID) && this.instructor.equals(other.instructor);
+    }
+
+    public boolean hasConflict(Class other){
+        boolean sameDay = false;
+        for(int i = 0; i < 5; i++){
+            if(this.daysOfWeek[i] && other.daysOfWeek[i]){
+                sameDay = true;
+                break;
+            }
+        }
+
+        boolean timeOverlap = false;
+
+        if(this.beginTime == other.beginTime) timeOverlap = true;
+        else if(this.beginTime > other.beginTime && this.endTime <= other.endTime){
+            timeOverlap = true;
+        }else if(other.beginTime > this.beginTime && other.endTime <= this.endTime) {
+            timeOverlap = true;
+        }
+
+        return sameDay && timeOverlap;
     }
 }

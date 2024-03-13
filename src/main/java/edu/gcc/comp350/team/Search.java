@@ -2,6 +2,7 @@ package edu.gcc.comp350.team;
 import java.util.ArrayList;
 
 public class Search {
+    private ArrayList<ArrayList<Class>> database;
     private ArrayList<Class> classes;
     private String curQueryText;
     private Filter filter;
