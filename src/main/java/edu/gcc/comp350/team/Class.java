@@ -38,6 +38,10 @@ public class Class {
         indexInDB = n;
     }
 
+    public int getNumCredits() {
+        return numCredits;
+    }
+
     public int getBeginTime() {
         return beginTime;
     }
