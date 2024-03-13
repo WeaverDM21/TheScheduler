@@ -9,6 +9,7 @@ public class Class {
     private boolean[] daysOfWeek;
     private int beginTime; // Military Time
     private int endTime; // Military Time
+    // TODO: edge case calculus where time of day is different per day
     private String instructor;
     private String department;
 
@@ -66,9 +67,6 @@ public class Class {
         return courseName;
     }
 
-    public boolean isSameClass(Class other){
-        return this.courseID.equals(other.courseID) && this.instructor.equals(other.instructor);
-    }
 
     public boolean hasConflict(Class other){
         boolean sameDay = false;
@@ -89,5 +87,9 @@ public class Class {
         }
 
         return sameDay && timeOverlap;
+    }
+
+    public boolean isSameClass(Class other){
+        return this.courseID.equals(other.courseID) && this.instructor.equals(other.instructor);
     }
 }
