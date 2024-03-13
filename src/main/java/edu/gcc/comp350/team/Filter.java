@@ -1,21 +1,26 @@
 package edu.gcc.comp350.team;
 
 public class Filter {
+
     private String courseName;
     private String courseDepartment;
     private String courseInstructor;
-    private String courseTime;
-    private String courseCode;
-    private Search search;
 
-    public Filter(String courseName, String courseDepartment, String courseInstructor,
-                  String courseTime, String courseCode) {
-        this.courseName = courseName;
-        this.courseDepartment = courseDepartment;
-        this.courseInstructor = courseInstructor;
-        this.courseTime = courseTime;
-        this.courseCode = courseCode;
-        search = new Search(this);
+    // eg 2:35 = 1435 (Military Time)
+    private int courseTimeStart;
+    private int courseTimeEnd;
+    // Index 0 is Monday and Index 4 is Friday
+    private boolean[] courseDay;
+    private String courseCode;
+
+    public Filter() {
+        this.courseName = "";
+        this.courseDepartment = "";
+        this.courseInstructor = "";
+        //this.courseTime = "";
+        this.courseCode = "";
+        courseDay = new boolean[5];
+
     }
 
     public String getCourseName() {
@@ -42,13 +47,13 @@ public class Filter {
         this.courseInstructor = courseInstructor;
     }
 
-    public String getCourseTime() {
-        return courseTime;
-    }
-
-    public void setCourseTime(String courseTime) {
-        this.courseTime = courseTime;
-    }
+//    public String getCourseTime() {
+//        return courseTime;
+//    }
+//
+//    public void setCourseTime(String courseTime) {
+//        this.courseTime = courseTime;
+//    }
 
     public String getCourseCode() {
         return courseCode;
