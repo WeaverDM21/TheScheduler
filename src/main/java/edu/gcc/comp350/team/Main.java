@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
     static Search s;
     static User u;
     static Schedule currentSchedule;
