@@ -10,15 +10,23 @@ public class Schedule {
 
     public Schedule(ArrayList<ArrayList<Class>> db){
         this.database = db;
+        numCredits = 0;
     }
 
     // this should look up the class in the db - if not found - exception
-    // if found, create class object and chek for conflicts in current using the Class.hasConflict
-    public void addCourse(Class c){
+    // if found, create class object and check for conflicts in current using the Class.hasConflict
+    public void addCourse(int index){
+        ArrayList<Class> courseToAdd = database.get(index);
+
+        int classCredits = courseToAdd.get(0).getNumCredits();
+        numCredits += classCredits;
     }
 
-    public void removeCourse(String courseID){
+    public void removeCourse(int index){
+        ArrayList<Class> courseToRemove = database.get(index);
 
+        int classCredits = courseToRemove.get(0).getNumCredits();
+        numCredits -= classCredits;
     }
 
     public void saveSchedule(){
