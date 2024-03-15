@@ -20,13 +20,28 @@ public class Schedule {
 
         int classCredits = courseToAdd.get(0).getNumCredits();
         numCredits += classCredits;
+
+        // Add the course to the list of classes in the schedule
+        classesInSchedule.addAll(courseToAdd);
+        numCourses++;
     }
 
     public void removeCourse(int index){
-        ArrayList<Class> courseToRemove = database.get(index);
+        // Check if the index is valid
+        if(index >= 0 && index < classesInSchedule.size())
+        {
+            Class courseToRemove = classesInSchedule.get(index);
+            int classCredits = courseToRemove.getNumCredits();
+            numCredits -= classCredits;
 
-        int classCredits = courseToRemove.get(0).getNumCredits();
-        numCredits -= classCredits;
+            // Remove the course from the list of classes in the schedule
+            classesInSchedule.remove(index);
+            numCourses--;
+        }
+        else
+        {
+            System.out.println("Invalid index. Course not removed.");
+        }
     }
 
     public void saveSchedule(){
