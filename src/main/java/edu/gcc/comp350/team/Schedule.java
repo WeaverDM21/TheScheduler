@@ -8,7 +8,7 @@ public class Schedule {
 
 
     public Schedule(ArrayList<ArrayList<Class>> db){
-        this.database = db;
+
     }
 
     // this should look up the class in the db - if not found - exception
