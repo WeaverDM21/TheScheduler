@@ -7,14 +7,14 @@ public class Schedule {
     private int numCredits;
 
 
-    public Schedule(){
-
+    public Schedule(ArrayList<ArrayList<Class>> db){
+        this.database = db;
     }
 
     // this should look up the class in the db - if not found - exception
     // if found, create class object and chek for conflicts in current using the Class.hasConflict
     public void addCourse(String courseID){
-        System.out.println("hi");
+
     }
 
     public void removeCourse(String courseID){
