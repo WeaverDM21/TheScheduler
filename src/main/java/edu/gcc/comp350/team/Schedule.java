@@ -44,8 +44,15 @@ public class Schedule {
         }
     }
 
-    public void saveSchedule(){
-
+    /**
+     * This method saves a Schedule by passing itself into the addSchedule method of User
+     *
+     * addSchedule will take care of adding this Schedule to its savedSchedules ArrayList
+     *
+     * @param s : An instance of the User class
+     */
+    public void saveSchedule(User s){
+        s.addSchedule(this);
     }
 
     public void downloadSchedule(){
