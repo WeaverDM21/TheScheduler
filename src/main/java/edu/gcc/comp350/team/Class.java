@@ -9,9 +9,9 @@ public class Class {
     private boolean[] daysOfWeek;
     private int beginTime; // Military Time
     private int endTime; // Military Time
-    // TODO: edge case calculus where time of day is different per day
     private String instructor;
     private String department;
+    private int indexInDB;
 
 //    private String description;
 
@@ -27,6 +27,19 @@ public class Class {
         this.endTime = endTime;
         this.instructor = instructor;
         this.department = department;
+        int indexInDB = -1;
+    }
+
+    public int getIndexInDB() {
+        return indexInDB;
+    }
+
+    public void setIndexInDB(int n){
+        indexInDB = n;
+    }
+
+    public int getNumCredits() {
+        return numCredits;
     }
 
     public int getBeginTime() {
