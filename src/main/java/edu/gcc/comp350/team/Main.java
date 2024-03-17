@@ -121,17 +121,20 @@ public class Main {
             if(!database.isEmpty()){
                 // If the same class as above, then add them to the shared arraylist
                 if(database.get(database.size()-1).get(0).isSameClass(tempClass)){
+                    tempClass.setIndexInDB(database.size()-1);
                     database.get(database.size()-1).add(tempClass);
                 }else{ // Add a new arraylist to the db
                     ArrayList<Class> temp = new ArrayList<>();
                     temp.add(tempClass);
                     database.add(temp);
+                    tempClass.setIndexInDB(database.size()-1);
                 }
             }else{
                 // If the list is empty, we have to add the first value
                 ArrayList<Class> temp = new ArrayList<>();
                 temp.add(tempClass);
                 database.add(temp);
+                tempClass.setIndexInDB(0);
             }
         }
 
