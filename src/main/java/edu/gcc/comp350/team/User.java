@@ -7,8 +7,13 @@ public class User{
         // stoppppppppppp
     }
 
+    /**
+     * This method adds the parameter Schedule to the savedSchedules ArrayList
+     *
+     * @param schedule : an instance of the Schedule class
+     */
     public void addSchedule(Schedule schedule){
-
+        savedSchedules.add(schedule);
     }
 
     public void deleteSchedule(String scheduleName){
