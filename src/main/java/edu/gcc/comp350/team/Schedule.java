@@ -1,5 +1,10 @@
 package edu.gcc.comp350.team;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+
 public class Schedule {
     private ArrayList<ArrayList<Class>> database;
     private String scheduleName;
@@ -67,9 +72,29 @@ public class Schedule {
 
     }
 
-    // for Gui purposes -- nicely formatted string
-    public void showRecSchedule(){
+    /**
+     * This method takes a GCC major as a String input and prints the recommended schedule
+     * for that major to the console. It uses preformatted txt files in the Recommended_Schedules folder.
+     * @param major : major of the recommended schedule to display
+     * @throws IOException
+     */
+    public void showRecSchedule(String major) throws IOException {
+        // Formats the pathname to the necessary PDF file based on major
+        String pathName = "src/Recommended_Schedules/" + major + ".txt";
 
+        // Loading an existing document
+        File file = new File(pathName);
+
+        // Creating an object of BufferedReader class
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        // Declaring a string variable
+        String st;
+
+        // Loop until end of file is reached
+        while ((st = br.readLine()) != null)
+            // Print the string
+            System.out.println(st);
     }
 
     // for Console purposes -- just to see what is in Schedule for Sprint 1
