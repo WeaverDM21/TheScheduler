@@ -8,9 +8,16 @@ public class Schedule {
     private int numCredits;
 
 
-    public Schedule(ArrayList<ArrayList<Class>> db){
+    public Schedule(ArrayList<ArrayList<Class>> db, String scheduleName){
         this.database = db;
+        this.scheduleName = scheduleName;
         numCredits = 0;
+    }
+
+    // Getter for scheduleName
+    public String getScheduleName()
+    {
+        return scheduleName;
     }
 
     // this should look up the class in the db - if not found - exception
