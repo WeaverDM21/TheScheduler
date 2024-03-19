@@ -17,6 +17,7 @@ public class Schedule {
     // Getter for scheduleName
     public String getScheduleName()
     {
+        System.out.println("Schedule Name is: " + scheduleName);
         return scheduleName;
     }
 
