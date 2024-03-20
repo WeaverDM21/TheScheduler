@@ -25,6 +25,11 @@ public class Search {
     // use this for dept, prof ... everything but time
     // 2 cases to address - add for first time, change
     public ArrayList<Class> modifyFilter(FilterAttribute userFilter){
+        for(ArrayList<Class> al: database){
+            for(Class c: al){
+                userFilter.getFilterOption();
+            }
+        }
         return null;
     }
     // use this for time filter

@@ -64,16 +64,48 @@ public class Class {
 
     @Override
     public String toString() {
-        return "Class{" +
-                "courseID='" + courseID + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", numCredits=" + numCredits +
-                ", daysOfWeek=" + Arrays.toString(daysOfWeek) +
-                ", beginTime=" + beginTime +
-                ", endTime=" + endTime +
-                ", instructor='" + instructor + '\'' +
-                ", department='" + department + '\'' +
-                '}';
+        char temp[] = {'M', 'T', 'W', 'R', 'F'};
+        StringBuilder daysTemp = new StringBuilder();
+
+        for(int i = 0; i < daysOfWeek.length; i++){
+            if(daysOfWeek[i]) daysTemp.append(temp[i]);
+        }
+        return courseID + " " + courseName + " " + daysTemp.toString() +
+                convertTime(beginTime) + "-" + convertTime(endTime);
+    }
+
+    public String convertTime(int time){
+        StringBuilder returnable = new StringBuilder();
+        if(time<1200){
+            returnable.append(time / 100);
+            returnable.append(":");
+
+            if(time % 100 < 10) returnable.append("0");
+
+            returnable.append(time % 100);
+            returnable.append(" AM");
+            return returnable.toString();
+        }else if(time < 1300){
+            returnable.append(time/100);
+            returnable.append(":");
+
+            if(time % 100 < 10) returnable.append("0");
+
+            returnable.append(time%100);
+            returnable.append(" PM");
+            return returnable.toString();
+        }
+
+        time -= 1200;
+        returnable.append(time / 100);
+        returnable.append(":");
+
+        if(time % 100 < 10) returnable.append("0");
+
+        returnable.append(time % 100);
+        returnable.append(" PM");
+
+        return returnable.toString();
     }
 
     public String getCourseName() {
