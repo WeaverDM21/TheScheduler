@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-// I don't like sand. It's coarse and rough and irritating and it gets everywhere.
 public class Search {
     private ArrayList<ArrayList<Class>> database;
     private ArrayList<ArrayList<Class>> curClasses;
@@ -45,15 +44,21 @@ public class Search {
         for(ArrayList<Class> cs : curClasses){
             for(Class c : cs){
                 if(userFilter.getFilterOption() == FilterAttribute.Option.NAME){
-
+                    if(c.getCourseName().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }else if(userFilter.getFilterOption() == FilterAttribute.Option.DEPT){
-
+                    if(c.getDepartment().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }else if(userFilter.getFilterOption() ==  FilterAttribute.Option.INSTRUCTOR){
                     if(c.getInstructor().equalsIgnoreCase(userFilter.getStringVal())){
                         this.newClasses.add(cs);
                     }
                 }else{ // TODO FilterAttribute.Option.CODE
-
+                    if(c.getCourseID().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }
             }
         }
