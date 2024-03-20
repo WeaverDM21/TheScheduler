@@ -16,21 +16,24 @@ public class Main {
     // In simplest terms, solves the problem of the edge case of calc
     static ArrayList<ArrayList<Class>> database = new ArrayList<>();
     public static void main(String[] args) throws Exception{
-//        generateDB();
-//        for(ArrayList<Class> arr: database){
-//            System.out.println(arr);
+        generateDB();
+//        for(ArrayList<Class> cs : database){
+//            System.out.println(cs);
 //        }
+        s = new Search(database);
 
-//        s = new Search(database);
+
+//        FilterAttribute instructor = new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "Shane Brower");
+//        s.modifyFilter(instructor);
+//        System.out.println();
         // talk to user and they add a filter example
-        // add instructor
-//        s.modifyFilter(new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "smith" ));
+//        // add instructor
+//
+//        // date example
+        FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
 
-        // date example
-        FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "MWF");
-        System.out.println(day.getStringVal());
-        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 1000);
-        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 1400);
+        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 800);
+        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 915);
         s.modifyFilter(day, start, end);
     }
 
@@ -39,7 +42,7 @@ public class Main {
     }
 
     private static void generateDB() throws FileNotFoundException {
-        Scanner input = new Scanner(new File("classes.txt"));
+        Scanner input = new Scanner(new File("src/classesList/classes.txt"));
 
         while(input.hasNextLine()){
             String line = input.nextLine();
@@ -63,12 +66,10 @@ public class Main {
 
             // Days will designate by Monday being index 0 and Friday being index 4
             // If true then the class is held on that day
-            boolean[] days = new boolean[5];
-            if(lineScanner.next().equals("M")) days[0] = true;
-            if(lineScanner.next().equals("T")) days[1] = true;
-            if(lineScanner.next().equals("W")) days[2] = true;
-            if(lineScanner.next().equals("R")) days[3] = true;
-            if(lineScanner.next().equals("F")) days[4] = true;
+            String days = "";
+            for(int i = 0; i<5; i++){
+                days += lineScanner.next();
+            }
 
             String time = lineScanner.next();
 
@@ -115,6 +116,11 @@ public class Main {
             String firstName = lineScanner.next();
             String fullName = firstName + " " + lastName;
 
+            if(section.equals("O")){
+               days = "Online Class";
+               startTime = 800;
+               endTime = 2359;
+            }
             Class tempClass = new Class(courseID, courseName, numCredits, days, startTime, endTime,
                     fullName, department);
 

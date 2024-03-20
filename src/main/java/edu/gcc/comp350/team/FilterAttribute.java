@@ -16,6 +16,7 @@ public class FilterAttribute {
     private String stringVal;
     private Option filterOption;
 
+    //TODO From the front end, if no time slot is given, pass in "extreme" values
     public FilterAttribute(Option a, int ival) {
         this.filterOption = a;
         intVal = ival;

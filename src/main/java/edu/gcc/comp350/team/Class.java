@@ -6,10 +6,11 @@ public class Class {
     private String courseID; // eg COMP350A -- will be unique
     private String courseName;
     private int numCredits;
-    private boolean[] daysOfWeek;
+    private String daysOfWeek;
     private int beginTime; // Military Time
     private int endTime; // Military Time
     private String instructor;
+
     private String department;
     private int indexInDB;
 
@@ -17,7 +18,7 @@ public class Class {
 
 
     public Class(String courseID, String courseName, int numCredits,
-                 boolean[] daysOfWeek, int beginTime, int endTime,
+                 String daysOfWeek, int beginTime, int endTime,
                  String instructor, String department) {
         this.courseID = courseID;
         this.courseName = courseName;
@@ -54,6 +55,10 @@ public class Class {
         return instructor;
     }
 
+    public String getDaysOfWeek(){
+        return daysOfWeek;
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -64,14 +69,9 @@ public class Class {
 
     @Override
     public String toString() {
-        char temp[] = {'M', 'T', 'W', 'R', 'F'};
-        StringBuilder daysTemp = new StringBuilder();
 
-        for(int i = 0; i < daysOfWeek.length; i++){
-            if(daysOfWeek[i]) daysTemp.append(temp[i]);
-        }
-        return courseID + " " + courseName + " " + daysTemp.toString() +
-                convertTime(beginTime) + "-" + convertTime(endTime);
+        return courseID + " " + courseName + " " + daysOfWeek + " " +
+                convertTime(beginTime) + "-" + convertTime(endTime) + " " + instructor;
     }
 
     public String convertTime(int time){
@@ -115,11 +115,14 @@ public class Class {
 
     public boolean hasConflict(Class other){
         boolean sameDay = false;
-        for(int i = 0; i < 5; i++){
-            if(this.daysOfWeek[i] && other.daysOfWeek[i]){
-                sameDay = true;
-                break;
+        for(int i = 0; i < other.daysOfWeek.length(); i++){
+            for(int j = 0; j < this.daysOfWeek.length(); j++){
+                if(daysOfWeek.charAt(i) == other.daysOfWeek.charAt(i)){
+                    sameDay = true;
+                    break;
+                }
             }
+
         }
 
         boolean timeOverlap = false;
