@@ -55,7 +55,7 @@ public class Search {
                     if(c.getInstructor().equalsIgnoreCase(userFilter.getStringVal())){
                         this.newClasses.add(cs);
                     }
-                }else{ // TODO FilterAttribute.Option.CODE
+                }else{
                     if(c.getCourseID().equalsIgnoreCase(userFilter.getStringVal())){
                         this.newClasses.add(cs);
                     }
