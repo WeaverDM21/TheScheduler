@@ -51,6 +51,10 @@ public class Search {
                     if(c.getDepartment().equalsIgnoreCase(userFilter.getStringVal())){
                         this.newClasses.add(cs);
                     }
+                }else if(userFilter.getFilterOption() ==  FilterAttribute.Option.INSTRUCTOR){
+                    if(c.getInstructor().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }
             }
         }
