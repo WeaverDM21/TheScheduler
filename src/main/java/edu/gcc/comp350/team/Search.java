@@ -55,6 +55,10 @@ public class Search {
                     if(c.getInstructor().equalsIgnoreCase(userFilter.getStringVal())){
                         this.newClasses.add(cs);
                     }
+                }else{ // TODO FilterAttribute.Option.CODE
+                    if(c.getCourseID().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }
             }
         }
