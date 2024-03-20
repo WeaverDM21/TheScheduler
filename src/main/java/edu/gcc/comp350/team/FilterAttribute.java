@@ -20,6 +20,7 @@ public class FilterAttribute {
         this.filterOption = a;
         intVal = ival;
     }
+
     public FilterAttribute(Option a, String sval) {
         this.filterOption = a;
         stringVal = sval;

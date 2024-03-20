@@ -16,20 +16,21 @@ public class Main {
     // In simplest terms, solves the problem of the edge case of calc
     static ArrayList<ArrayList<Class>> database = new ArrayList<>();
     public static void main(String[] args) throws Exception{
-        generateDB();
-        for(ArrayList<Class> arr: database){
-            System.out.println(arr);
-        }
+//        generateDB();
+//        for(ArrayList<Class> arr: database){
+//            System.out.println(arr);
+//        }
 
-        s = new Search(database);
+//        s = new Search(database);
         // talk to user and they add a filter example
         // add instructor
-        s.modifyFilter(new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "smith" ));
+//        s.modifyFilter(new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "smith" ));
 
         // date example
         FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "MWF");
-        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.DAY, 1000);
-        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.DAY, 1400);
+        System.out.println(day.getStringVal());
+        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 1000);
+        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 1400);
         s.modifyFilter(day, start, end);
     }
 
