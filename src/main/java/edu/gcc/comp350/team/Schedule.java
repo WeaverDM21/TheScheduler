@@ -65,6 +65,7 @@ public class Schedule {
      * @param s : An instance of the User class
      */
     public void saveSchedule(User s){
+        // TODO Saved Schedules Folder
         s.addSchedule(this);
     }
 
