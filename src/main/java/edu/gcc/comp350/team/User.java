@@ -31,7 +31,6 @@ public class User{
                 return schedule;
             }
         }
-        System.out.println("schedule not found");
         return null; // Schedule not found
     }
 
