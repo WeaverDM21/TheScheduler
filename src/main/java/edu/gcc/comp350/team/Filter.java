@@ -20,7 +20,6 @@ public class Filter {
         //this.courseTime = "";
         this.courseCode = "";
         courseDay = new boolean[5];
-
     }
 
     public String getCourseName() {
