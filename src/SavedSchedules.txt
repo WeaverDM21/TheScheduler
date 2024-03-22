@@ -1,2 +1,2 @@
 Schedule 1,5,9,20,
-Schedule 2,11,11,18,90,
+Schedule 2,18,90,
