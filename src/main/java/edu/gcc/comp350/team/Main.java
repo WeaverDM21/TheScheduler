@@ -20,7 +20,22 @@ public class Main {
 //        for(ArrayList<Class> cs : database){
 //            System.out.println(cs);
 //        }
-        s = new Search(database);
+        //s = new Search(database);
+
+        // Testing savedSchedule
+        User us = new User();
+        Schedule sch = new Schedule(database, "Schedule 1");
+        sch.addCourse(5);
+        sch.addCourse(9);
+        sch.saveSchedule(us);
+        sch.addCourse(20);
+        sch.saveSchedule(us);
+        Schedule sch2 = new Schedule(database, "Schedule 2");
+        sch2.addCourse(11);
+        sch2.addCourse(18);
+        sch2.addCourse(90);
+        sch2.saveSchedule(us);
+        sch2.printSchedule();
 
 
 //        FilterAttribute instructor = new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "Shane Brower");
@@ -30,11 +45,11 @@ public class Main {
 //        // add instructor
 //
 //        // date example
-        FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
-
-        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 800);
-        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 915);
-        s.modifyFilter(day, start, end);
+//        FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
+//
+//        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 800);
+//        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 915);
+//        s.modifyFilter(day, start, end);
     }
 
     private static void run(){
