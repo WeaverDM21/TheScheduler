@@ -14,15 +14,21 @@ public class FilterAttribute {
 
 
     private String stringVal;
-    Option f;
+    private Option filterOption;
 
+    //TODO From the front end, if no time slot is given, pass in "extreme" values
     public FilterAttribute(Option a, int ival) {
-        this.f = a;
+        this.filterOption = a;
         intVal = ival;
     }
+
     public FilterAttribute(Option a, String sval) {
-        this.f = a;
+        this.filterOption = a;
         stringVal = sval;
+    }
+
+    public Option getFilterOption(){
+        return filterOption;
     }
 
     public int getIntVal() {
