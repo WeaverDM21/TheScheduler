@@ -17,6 +17,7 @@ public class Main {
     static ArrayList<ArrayList<Class>> database = new ArrayList<>();
     public static void main(String[] args) throws Exception{
         generateDB();
+        run();
 //        for(ArrayList<Class> cs : database){
 //            System.out.println(cs);
 //        }
@@ -37,8 +38,81 @@ public class Main {
         s.modifyFilter(day, start, end);
     }
 
-    private static void run(){
+    private static void run() throws Exception{
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to Grove City Course Scheduler!");
 
+        u = new User();
+        u.loadSavedSchedules();
+
+        while (true) {
+            System.out.println("Type 1 to create a new schedule or 2 to open an old one");
+            int choice = 0;
+
+            while (true) {
+                try {
+                    choice = input.nextInt();
+                    input.nextLine();
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Please type a valid integer.");
+                }
+
+            }
+
+            // If they chose one they want a new schedule
+            if (choice == 1) {
+                currentSchedule = new Schedule(database);
+                System.out.println("What would you like the name of this schedule to be?");
+
+                currentSchedule.setScheduleName(input.nextLine().trim());
+                break;
+            } else if (choice == 2) { //
+                ArrayList<Schedule> temp = u.getSavedSchedules();
+
+                // If temp is empty, there are no saved schedules
+                if (temp.isEmpty()) {
+                    System.out.println("No saved schedules. Opening a blank one.");
+                    currentSchedule = new Schedule(database);
+
+                    System.out.println("What would you like the name of the new schedule to be?");
+                    String name = input.nextLine();
+                    currentSchedule.setScheduleName(name.trim());
+                    break;
+                }
+
+                // If temp is not empty, then they must select a saved schedule
+                while (true) {
+                    // Provide the saved schedules names
+                    System.out.println("Please select the number next to the desired schedule");
+                    for (int i = 0; i < temp.size(); i++) {
+                        System.out.println((i + 1) + ". " + temp.get(i).getScheduleName());
+                    }
+
+                    // They select a valid number
+                    int desiredSchedule = 0;
+                    while (true) {
+                        try {
+                            desiredSchedule = input.nextInt();
+                            input.nextLine();
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Please select a valid schedule");
+                        }
+                    }
+
+                    currentSchedule = u.getSchedule(
+                            temp.get(desiredSchedule - 1).getScheduleName()
+                    );
+                    break;
+
+                }
+                break;
+            } else {
+                System.out.println("Invalid input.");
+            }
+
+        }
     }
 
     private static void generateDB() throws FileNotFoundException {

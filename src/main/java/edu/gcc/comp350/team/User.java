@@ -1,4 +1,8 @@
 package edu.gcc.comp350.team;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 public class User{
     ArrayList<Schedule> savedSchedules;
@@ -16,6 +20,9 @@ public class User{
         savedSchedules.add(schedule);
     }
 
+    public ArrayList<Schedule> getSavedSchedules(){
+        return savedSchedules;
+    }
     /**
      * This method retrieves a saved schedule based on its name.
      *
@@ -32,6 +39,24 @@ public class User{
             }
         }
         return null; // Schedule not found
+    }
+    public void loadSavedSchedules() throws IOException {
+        // Load SavedSchedules.txt
+        File file = new File("src/SavedSchedules.txt");
+
+        // BufferedReader to read through file
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        // Declaring a string variable to hold each line
+        String line;
+
+        // Loop until end of file is reached
+        while ((line = br.readLine()) != null){
+            //TODO: Load in saved schedules
+        }
+
+        // Close br
+        br.close();
     }
 
     public void deleteSchedule(String scheduleName){
