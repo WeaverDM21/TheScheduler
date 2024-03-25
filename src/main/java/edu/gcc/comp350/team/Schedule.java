@@ -10,6 +10,12 @@ public class Schedule {
     private int numCredits;
 
 
+    public Schedule(ArrayList<ArrayList<Class>> db){
+        this.database = db;
+        this.scheduleName = "";
+        this.numCredits = 0;
+    }
+
     public Schedule(ArrayList<ArrayList<Class>> db, String scheduleName){
         this.database = db;
         this.scheduleName = scheduleName;
@@ -22,6 +28,10 @@ public class Schedule {
     {
         System.out.println("Schedule Name is: " + scheduleName);
         return scheduleName;
+    }
+
+    public void setScheduleName(String name){
+        this.scheduleName = name;
     }
 
     // this should look up the class in the db - if not found - exception
