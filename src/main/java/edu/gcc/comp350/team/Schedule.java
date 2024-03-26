@@ -108,6 +108,21 @@ public class Schedule {
             System.out.println(st);
     }
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < classesInSchedule.size(); i++){
+            sb.append((i+1) + " " + classesInSchedule.get(i).toString());
+        }
+
+        return sb.toString();
+    }
+
+    public ArrayList<Class> getClassesInSchedule(){
+        return classesInSchedule;
+    }
+
     // for Console purposes -- just to see what is in Schedule for Sprint 1
     public void printSchedule(){
 

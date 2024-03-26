@@ -131,5 +131,20 @@ public class Search {
         return null;
     }
 
+    public ArrayList<FilterAttribute> printFilterAttributes(){
+        for(FilterAttribute f : filters){
+            System.out.println(f);
+        }
+        return filters;
+    }
+
+    public ArrayList<ArrayList<Class>> printCurrClasses(){
+        for(int i = 0; i < curClasses.size(); i++){
+            System.out.println((i+1) + " " + curClasses.get(i).get(0));
+        }
+
+        return curClasses;
+    }
+
 
 }

@@ -11,8 +11,6 @@ public class FilterAttribute {
         CODE
     }
     private int intVal;
-
-
     private String stringVal;
     private Option filterOption;
 
@@ -45,5 +43,12 @@ public class FilterAttribute {
 
     public void setStringVal(String stringVal) {
         this.stringVal = stringVal;
+    }
+
+    public String toString(){
+        if(this.filterOption == Option.START || this.filterOption == Option.END){
+            return this.filterOption + " TIME = " + this.intVal;
+        }
+        return this.filterOption + "=" + this.stringVal;
     }
 }
