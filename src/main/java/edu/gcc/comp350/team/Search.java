@@ -123,12 +123,28 @@ public class Search {
     example: called like removeFiler(FilterAttribute.Option.DAY)
      */
     public ArrayList<Class> removeFilter(FilterAttribute.Option f){
-        for(FilterAttribute filter: this.filters){
-            if(f == filter.getFilterOption()){
-                this.filters.remove(filter);
+        for(int i =0; i < filters.size(); i++){
+            if(f == filters.get(i).getFilterOption()){
+                this.filters.remove(filters.get(i));
+                i--;
             }
         }
         return null;
+    }
+
+    public ArrayList<FilterAttribute> printFilterAttributes(){
+        for(FilterAttribute f : filters){
+            System.out.println(f);
+        }
+        return filters;
+    }
+
+    public ArrayList<ArrayList<Class>> printCurrClasses(){
+        for(int i = 0; i < curClasses.size(); i++){
+            System.out.println((i+1) + " " + curClasses.get(i).get(0));
+        }
+
+        return curClasses;
     }
 
 
