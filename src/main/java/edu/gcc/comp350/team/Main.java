@@ -42,18 +42,20 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to Grove City Course Scheduler!");
 
+        s = new Search(database);
         u = new User();
         u.loadSavedSchedules();
 
         openSchedule(input);
 
         while(true){
-            System.out.println("Type 1 to change schedules\n" +
-                    "2 to add a class to the schedule\n" +
-                    "3 to remove a class from the schedule\n" +
-                    "4 to see a recommended course path for your major\n" +
-                    "5 to save your schedule and exit the program\n" +
-                    "6 to exit the program without saving");
+            System.out.println("Type:\n1 to change schedules\n" +
+                    "2 to see the current schedule\n" +
+                    "3 to add a class to the schedule\n" +
+                    "4 to remove a class from the schedule\n" +
+                    "5 to see a recommended course path for your major\n" +
+                    "6 to save your schedule and exit the program\n" +
+                    "7 to exit the program without saving");
 
             int choice = 0;
             try{
@@ -80,6 +82,9 @@ public class Main {
                     }
                     break;
                 case 2:
+                    System.out.println(currentSchedule);
+                    break;
+                case 3:
                     while(true){
                         System.out.println("Type a negative number to add no search filters\n" +
                                 "Type 1 to search a class by name\n" +
@@ -119,6 +124,10 @@ public class Main {
                     }
 
                     while(remove == 1){
+                        if(filters.size() == 0) {
+                            System.out.println("No filters remaining");
+                            break;
+                        }
                         for(int i = 0; i < filters.size(); i++){
                             System.out.println((i+1) + " " + filters.get(i).getFilterOption());
                         }
@@ -155,28 +164,36 @@ public class Main {
                     ArrayList<ArrayList<Class>> results = s.printCurrClasses();
 
                     System.out.println();
-                    System.out.println("Select the number next to the class that you want to add to your schedule");
+                    System.out.println("Select the number next to the class that you want to add to your schedule or enter -1 to add none.");
 
                     int desiredClass;
+                    boolean skip = false;
+
                     while(true){
                         try{
                             desiredClass = input.nextInt();
+                            if(desiredClass == -1) {
+                                skip = true;
+                                break;
+                            }
                             if(desiredClass > 0 && desiredClass <= results.size()) break;
                             else System.out.println("Invalid input.");
                         }catch(Exception e){
                             System.out.println("Invalid input.");
                         }
                     }
+                    if(skip) continue;
 
                     currentSchedule.addCourse(results.get(desiredClass).get(0).getIndexInDB());
                     break;
-                case 3:
+
+                case 4:
                     if(currentSchedule.getClassesInSchedule().isEmpty()){
                         System.out.println("There are no classes in the schedule!");
                         continue;
                     }
                     System.out.println("The current schedule is below ");
-                    System.out.println(currentSchedule);
+                    currentSchedule.printForRemove();
 
                     System.out.println("Select the number next to the class you want to remove");
 
@@ -185,7 +202,7 @@ public class Main {
                         try{
                             classToRemove = input.nextInt();
                             if(classToRemove > 0 && classToRemove <= currentSchedule.getClassesInSchedule().size()){
-                                currentSchedule.removeCourse(classToRemove);
+                                currentSchedule.removeCourse(classToRemove-1);
                                 break;
                             }else{
                                 System.out.println("Invalid input");
@@ -196,11 +213,11 @@ public class Main {
                     }
 
                     break;
-                case 4:
+                case 5:
                     // TODO generate a list of majors to select from and give the option to
 
                     break;
-                case 5:
+                case 6:
                     System.out.println("Are you sure you want to exit and save? Type 1 for yes and 2 for no.");
                     int exitSave = 0;
                     while(true){
@@ -220,7 +237,7 @@ public class Main {
                         }
                     }
                     break;
-                case 6:
+                case 7:
                     System.out.println("Are you sure you want to exit without saving? Type 1 for yes and 2 for no.");
                     int exit = 0;
                     while(true){

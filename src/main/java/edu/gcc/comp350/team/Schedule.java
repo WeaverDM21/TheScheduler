@@ -17,12 +17,14 @@ public class Schedule {
         this.database = db;
         this.scheduleName = "";
         this.numCredits = 0;
+        this.classesInSchedule = new ArrayList<>();
     }
 
     public Schedule(ArrayList<ArrayList<Class>> db, String scheduleName){
         this.database = db;
         this.scheduleName = scheduleName;
         numCredits = 0;
+        this.classesInSchedule = new ArrayList<>();
     }
 
     // Getter for scheduleName
@@ -34,6 +36,12 @@ public class Schedule {
 
     public void setScheduleName(String name){
         this.scheduleName = name;
+    }
+
+    public void printForRemove(){
+        for(int i = 0; i < classesInSchedule.size(); i++){
+            System.out.println((i+1) + " " + classesInSchedule.get(i).toString());
+        }
     }
 
     // this should look up the class in the db - if not found - exception
@@ -113,7 +121,7 @@ public class Schedule {
         StringBuilder sb = new StringBuilder();
 
         for(int i = 0; i < classesInSchedule.size(); i++){
-            sb.append((i+1) + " " + classesInSchedule.get(i).toString());
+            sb.append(classesInSchedule.get(i).toString() + "\n");
         }
 
         return sb.toString();
