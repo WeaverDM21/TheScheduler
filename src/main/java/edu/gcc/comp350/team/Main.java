@@ -121,7 +121,7 @@ public class Main {
                     System.out.println("All search filters active: ");
                     ArrayList<FilterAttribute> filters = s.printFilterAttributes();
 
-                    System.out.println();
+                    System.out.println("");
 
                     int remove = 0;
                     while(true){

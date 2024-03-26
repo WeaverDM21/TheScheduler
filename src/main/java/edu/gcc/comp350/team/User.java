@@ -40,7 +40,8 @@ public class User{
         }
         return null; // Schedule not found
     }
-    public void loadSavedSchedules() throws IOException {
+    public void loadSavedSchedules(ArrayList<ArrayList<Class>> database) throws IOException {
+        // Load SavedSchedules.txt
         // Load SavedSchedules.txt
         File file = new File("src/SavedSchedules.txt");
 
@@ -52,7 +53,12 @@ public class User{
 
         // Loop until end of file is reached
         while ((line = br.readLine()) != null){
-            //TODO: Load in saved schedules
+            String[] lineInfo = line.split(",");
+            Schedule s = new Schedule(database, lineInfo[0]);
+            for (int i = 1; i < lineInfo.length; i++){
+                s.addCourse(Integer.valueOf(lineInfo[i]));
+            }
+            savedSchedules.add(s);
         }
 
         // Close br

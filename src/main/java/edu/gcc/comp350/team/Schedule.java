@@ -1,9 +1,6 @@
 package edu.gcc.comp350.team;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
 
 public class Schedule {
     private ArrayList<ArrayList<Class>> database;
@@ -24,7 +21,7 @@ public class Schedule {
         this.database = db;
         this.scheduleName = scheduleName;
         numCredits = 0;
-        this.classesInSchedule = new ArrayList<>();
+        classesInSchedule = new ArrayList<>();
     }
 
     // Getter for scheduleName
@@ -82,9 +79,55 @@ public class Schedule {
      *
      * @param s : An instance of the User class
      */
-    public void saveSchedule(User s){
-        // TODO Saved Schedules Folder
+    public void saveSchedule(User s) throws IOException {
+        // Add schedule to User's SavedSchedules ArrayList
         s.addSchedule(this);
+
+        // Load SavedSchedules.txt
+        File oldFile = new File("src/SavedSchedules.txt");
+
+        // Create a new file to write to
+        File newFile = new File("src/newSavedSchedules.txt");
+
+        // BufferedReader to read through oldFile
+        BufferedReader br = new BufferedReader(new FileReader(oldFile));
+
+        // PrintWriter to write to newFile
+        PrintWriter pw = new PrintWriter(newFile);
+
+        // Declaring a string variable to hold each line
+        String line;
+
+        // Loop until end of file is reached
+        while ((line = br.readLine()) != null){
+            if (!line.startsWith(this.scheduleName)){
+                pw.write(line + "\n");
+                pw.flush();
+            }
+        }
+
+        // Close br
+        br.close();
+
+        //Delete oldFile
+        oldFile.delete();
+
+        // Saving the schedule in newFile
+        pw.write(this.scheduleName + ",");
+        for (Class c : classesInSchedule){
+            pw.write(c.getIndexInDB() + ",");
+            pw.flush();
+        }
+
+        // Write a new line
+        pw.write("\n");
+        pw.flush();
+
+        // Close pw
+        pw.close();
+
+        //Rename newFile to SavedSchedules.txt
+        newFile.renameTo(oldFile);
     }
 
     public void downloadSchedule(){
