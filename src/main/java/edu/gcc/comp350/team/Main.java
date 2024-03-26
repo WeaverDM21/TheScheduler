@@ -44,18 +44,19 @@ public class Main {
 
         s = new Search(database);
         u = new User();
-        u.loadSavedSchedules();
+        u.loadSavedSchedules(database);
 
         openSchedule(input);
 
         while(true){
             System.out.println("Type:\n1 to change schedules\n" +
-                    "2 to see the current schedule\n" +
-                    "3 to add a class to the schedule\n" +
-                    "4 to remove a class from the schedule\n" +
-                    "5 to see a recommended course path for your major\n" +
-                    "6 to save your schedule and exit the program\n" +
-                    "7 to exit the program without saving");
+                    "2 to update the name of the schedule\n" +
+                    "3 to see the current schedule\n" +
+                    "4 to add a class to the schedule\n" +
+                    "5 to remove a class from the schedule\n" +
+                    "6 to see a recommended course path for your major\n" +
+                    "7 to save your schedule and exit the program\n" +
+                    "8 to exit the program without saving");
 
             int choice = 0;
             try{
@@ -82,9 +83,20 @@ public class Main {
                     }
                     break;
                 case 2:
+                    System.out.println("What would you like the name of the schedule to be? Enter a number to cancel updating the name.");
+                    String name = input.nextLine();
+
+                    try{
+                        Integer.parseInt(name);
+                        break;
+                    }catch (NumberFormatException e){
+                        currentSchedule.setScheduleName(name);
+                    }
+
+                case 3:
                     System.out.println(currentSchedule);
                     break;
-                case 3:
+                case 4:
                     while(true){
                         System.out.println("Type a negative number to add no search filters\n" +
                                 "Type 1 to search a class by name\n" +
@@ -187,7 +199,7 @@ public class Main {
                     currentSchedule.addCourse(results.get(desiredClass).get(0).getIndexInDB());
                     break;
 
-                case 4:
+                case 5:
                     if(currentSchedule.getClassesInSchedule().isEmpty()){
                         System.out.println("There are no classes in the schedule!");
                         continue;
@@ -213,11 +225,11 @@ public class Main {
                     }
 
                     break;
-                case 5:
+                case 6:
                     // TODO generate a list of majors to select from and give the option to
 
                     break;
-                case 6:
+                case 7:
                     System.out.println("Are you sure you want to exit and save? Type 1 for yes and 2 for no.");
                     int exitSave = 0;
                     while(true){
@@ -237,7 +249,7 @@ public class Main {
                         }
                     }
                     break;
-                case 7:
+                case 8:
                     System.out.println("Are you sure you want to exit without saving? Type 1 for yes and 2 for no.");
                     int exit = 0;
                     while(true){
