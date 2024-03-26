@@ -79,55 +79,72 @@ public class Schedule {
      *
      * @param s : An instance of the User class
      */
-    public void saveSchedule(User s) throws IOException {
-        // Add schedule to User's SavedSchedules ArrayList
-        s.addSchedule(this);
+    public void saveSchedule(User s)
+    {
+        try
+        {
+            // Add schedule to User's SavedSchedules ArrayList
+            s.addSchedule(this);
 
-        // Load SavedSchedules.txt
-        File oldFile = new File("src/SavedSchedules.txt");
+            // Load SavedSchedules.txt
+            File oldFile = new File("src/SavedSchedules.txt");
 
-        // Create a new file to write to
-        File newFile = new File("src/newSavedSchedules.txt");
+            // Create a new file to write to
+            File newFile = new File("src/newSavedSchedules.txt");
 
-        // BufferedReader to read through oldFile
-        BufferedReader br = new BufferedReader(new FileReader(oldFile));
+            // BufferedReader to read through oldFile
+            BufferedReader br = new BufferedReader(new FileReader(oldFile));
 
-        // PrintWriter to write to newFile
-        PrintWriter pw = new PrintWriter(newFile);
+            // PrintWriter to write to newFile
+            PrintWriter pw = new PrintWriter(newFile);
 
-        // Declaring a string variable to hold each line
-        String line;
+            // Declaring a string variable to hold each line
+            String line;
 
-        // Loop until end of file is reached
-        while ((line = br.readLine()) != null){
-            if (!line.startsWith(this.scheduleName)){
-                pw.write(line + "\n");
+            // Loop until end of file is reached
+            while((line = br.readLine()) != null)
+            {
+                if(!line.startsWith(this.scheduleName))
+                {
+                    pw.write(line + "\n");
+                    pw.flush();
+                }
+            }
+
+            // Close br
+            br.close();
+
+            //Delete oldFile
+            if(!oldFile.delete())
+            {
+                System.err.println("Failed to delete the old schedule file.");
+                return;
+            }
+
+            // Saving the schedule in newFile
+            pw.write(this.scheduleName + ",");
+            for (Class c : classesInSchedule) {
+                pw.write(c.getIndexInDB() + ",");
                 pw.flush();
             }
-        }
 
-        // Close br
-        br.close();
-
-        //Delete oldFile
-        oldFile.delete();
-
-        // Saving the schedule in newFile
-        pw.write(this.scheduleName + ",");
-        for (Class c : classesInSchedule){
-            pw.write(c.getIndexInDB() + ",");
+            // Write a new line
+            pw.write("\n");
             pw.flush();
+
+            // Close pw
+            pw.close();
+
+            //Rename newFile to SavedSchedules.txt
+            if(!newFile.renameTo(oldFile))
+            {
+                System.err.println("Failed to rename the new schedule file.");
+            }
         }
-
-        // Write a new line
-        pw.write("\n");
-        pw.flush();
-
-        // Close pw
-        pw.close();
-
-        //Rename newFile to SavedSchedules.txt
-        newFile.renameTo(oldFile);
+        catch(IOException e)
+        {
+            System.err.println("An error occurred while saving the schedule: " + e.getMessage());
+        }
     }
 
     public void downloadSchedule(){
