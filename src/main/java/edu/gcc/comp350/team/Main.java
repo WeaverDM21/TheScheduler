@@ -196,7 +196,7 @@ public class Main {
                     }
                     if(skip) continue;
 
-                    currentSchedule.addCourse(results.get(desiredClass).get(0).getIndexInDB());
+                    currentSchedule.addCourse(results.get(desiredClass-1).get(0).getIndexInDB());
                     break;
 
                 case 5:
