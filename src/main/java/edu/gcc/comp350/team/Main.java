@@ -442,7 +442,7 @@ public class Main {
             }
         }
     }
-    private static void generateDB() throws FileNotFoundException {
+    public static void generateDB() throws FileNotFoundException {
         Scanner input = new Scanner(new File("src/classesList/classes.txt"));
 
         while(input.hasNextLine()){
