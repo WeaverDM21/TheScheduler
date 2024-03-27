@@ -32,7 +32,7 @@ public class Search {
     // 2 cases to address - add for first time, change
     public ArrayList<ArrayList<Class>> modifyFilter(FilterAttribute userFilter){
 
-        if(userFilter == null){
+        if(userFilter.getStringVal() == "" && userFilter.getIntVal() == 0){
             return curClasses;
         }else{
             this.filters.removeIf(
@@ -136,6 +136,10 @@ public class Search {
         for(FilterAttribute f : filters){
             System.out.println(f);
         }
+        return filters;
+    }
+
+    public ArrayList<FilterAttribute> filterList(){
         return filters;
     }
 
