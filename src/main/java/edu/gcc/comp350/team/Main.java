@@ -248,7 +248,9 @@ public class Main {
                     }
                     if(skip) continue;
 
-                    currentSchedule.addCourse(results.get(desiredClass-1).get(0).getIndexInDB());
+                    if(currentSchedule.addCourse(results.get(desiredClass-1).get(0).getIndexInDB())){
+                        System.out.println("Course added.");
+                    }
                     break;
 
                 case 6:
@@ -411,12 +413,18 @@ public class Main {
             System.out.println("Type 1 to create a new schedule or 2 to open an old one");
             int choice = 0;
 
-            try {
-                choice = input.nextInt();
-                input.nextLine();
-            } catch (Exception e) {
-                input.nextLine();
+            while(true){
+                try {
+                    choice = input.nextInt();
+                    input.nextLine();
+
+                    if(choice == 1 || choice == 2) break;
+                    else System.out.println("Invalid input");
+                } catch (Exception e) {
+                    input.nextLine();
+                }
             }
+
 
 
             // If they chose one they want a new schedule
@@ -424,7 +432,7 @@ public class Main {
                 currentSchedule = new Schedule(database);
                 System.out.println("What would you like the name of this schedule to be?");
 
-                currentSchedule.setScheduleName(input.nextLine().trim());
+                currentSchedule.setScheduleName(input.nextLine());
                 break;
             } else if (choice == 2) {
                 ArrayList<Schedule> temp = u.getSavedSchedules();
