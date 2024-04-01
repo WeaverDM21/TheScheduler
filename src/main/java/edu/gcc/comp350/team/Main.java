@@ -71,14 +71,16 @@ public class Main {
         openSchedule(input);
 
         while(true){
-            System.out.println("Type:\n1 to change schedules\n" +
+            System.out.println("Type:\n" +
+                    "1 to change schedules\n" +
                     "2 to update the name of the schedule\n" +
                     "3 to see the current schedule\n" +
-                    "4 to add a class to the schedule\n" +
-                    "5 to remove a class from the schedule\n" +
-                    "6 to see a recommended course path for your major\n" +
-                    "7 to save your schedule and exit the program\n" +
-                    "8 to exit the program without saving");
+                    "4 to update search filters\n" +
+                    "5 to add a class to the schedule\n" +
+                    "6 to remove a class from the schedule\n" +
+                    "7 to see a recommended course path for your major\n" +
+                    "8 to save your schedule and exit the program\n" +
+                    "9 to exit the program without saving");
 
             int choice = 0;
             try{
@@ -120,81 +122,109 @@ public class Main {
                     break;
                 case 4:
                     while(true){
-                        System.out.println("Type a negative number to add no search filters\n" +
-                                "Type 1 to search a class by name\n" +
-                                "Type 2 to search classes by department\n" +
-                                "Type 3 to search classes by instructor\n" +
-                                "Type 4 to search classes by course code\n" +
-                                "Type 5 to search classes by day or time of the week\n");
-                        System.out.println("If you make a mistake, just redo the same filter option.");
-                        int searchValue = 0;
-                        try{
-                            searchValue = input.nextInt();
-                            input.nextLine();
-                        }catch (Exception e){
-                            input.nextLine();
-                        }
+                        System.out.println("Type 1 to add a search filter, 2 to remove a search filter, 3 to cancel");
 
-                        if(searchValue < 0) break;
-
-                        findSearchFilters(searchValue, input);
-                    }
-
-                    System.out.println("All search filters active: ");
-                    ArrayList<FilterAttribute> filters = s.printFilterAttributes();
-
-                    System.out.println("");
-
-                    int remove = 0;
-                    while(true){
-                        System.out.println("Are there any search filters you want to remove? 1 if yes, 2 if no.");
-                        try{
-                            remove = input.nextInt();
-                            if(remove == 1 || remove == 2) break;
-                            else System.out.println("Invalid input.");
-                        }catch (Exception e){
-                            System.out.println("Invalid input.");
-                        }
-                    }
-
-                    while(remove == 1){
-                        if(filters.size() == 0) {
-                            System.out.println("No filters remaining");
-                            break;
-                        }
-                        for(int i = 0; i < filters.size(); i++){
-                            System.out.println((i+1) + " " + filters.get(i).getFilterOption());
-                        }
-
-                        System.out.println("Which filter value do you want to remove? Select the number from the list above.");
-                        int removeVal = 0;
-
+                        int searchInput = 0;
                         while(true){
                             try{
-                                removeVal = input.nextInt();
-                                if(removeVal > 0 && removeVal <= filters.size()) break;
-                                else System.out.println("Invalid input.");
+                                searchInput = input.nextInt();
+                                input.nextLine();
+                                if(searchInput >=1 && searchInput <= 3){
+                                    break;
+                                }
                             }catch (Exception e){
                                 System.out.println("Invalid input.");
                             }
                         }
 
-                        s.removeFilter(filters.get(removeVal-1).getFilterOption());
+                        if(searchInput == 3) break;
 
-                        System.out.println("Are there more filters you want to remove? 1 if yes, 2 if no.");
+                        switch (searchInput){
+                            case 1:
+                                System.out.println("Type a negative number to add no search filters\n" +
+                                        "Type 1 to search a class by name\n" +
+                                        "Type 2 to search classes by department\n" +
+                                        "Type 3 to search classes by instructor\n" +
+                                        "Type 4 to search classes by course code\n" +
+                                        "Type 5 to search classes by day or time of the week\n");
+                                System.out.println("If you make a mistake, just redo the same filter option.");
+                                int searchValue = 0;
+                                try{
+                                    searchValue = input.nextInt();
+                                    input.nextLine();
+                                }catch (Exception e){
+                                    input.nextLine();
+                                }
 
-                        while(true){
-                            try{
-                                remove = input.nextInt();
-                                if(remove == 1 || remove == 2) break;
-                                else System.out.println("Invalid input.");
-                            }catch (Exception e){
-                                System.out.println("Invalid input.");
-                            }
+                                if(searchValue < 0) break;
+
+                                findSearchFilters(searchValue, input);
+
+                                break;
+                            case 2:
+                                System.out.println("All search filters active: ");
+                                ArrayList<FilterAttribute> filters = s.printFilterAttributes();
+
+                                System.out.println();
+
+                                int remove = 0;
+                                while(true){
+                                    System.out.println("Are there any search filters you want to remove? 1 if yes, 2 if no.");
+                                    try{
+                                        remove = input.nextInt();
+                                        if(remove == 1 || remove == 2) break;
+                                        else System.out.println("Invalid input.");
+                                    }catch (Exception e){
+                                        System.out.println("Invalid input.");
+                                    }
+                                }
+
+                                while(remove == 1){
+                                    if(filters.isEmpty()) {
+                                        System.out.println("No filters remaining");
+                                        break;
+                                    }
+
+                                    for(int i = 0; i < filters.size(); i++){
+                                        System.out.println((i+1) + " " + filters.get(i).getFilterOption());
+                                    }
+
+                                    System.out.println("Which filter value do you want to remove? Select the number from the list above.");
+                                    int removeVal = 0;
+
+                                    while(true){
+                                        try{
+                                            removeVal = input.nextInt();
+                                            if(removeVal > 0 && removeVal <= filters.size()) break;
+                                            else System.out.println("Invalid input.");
+                                        }catch (Exception e){
+                                            System.out.println("Invalid input.");
+                                        }
+                                    }
+
+                                    s.removeFilter(filters.get(removeVal-1).getFilterOption());
+
+                                    System.out.println("Are there more filters you want to remove? 1 if yes, 2 if no.");
+
+                                    while(true){
+                                        try{
+                                            remove = input.nextInt();
+                                            if(remove == 1 || remove == 2) break;
+                                            else System.out.println("Invalid input.");
+                                        }catch (Exception e){
+                                            System.out.println("Invalid input.");
+                                        }
+                                    }
+                                }
+                                break;
+
                         }
                     }
 
-                    System.out.println("Here are the courses that fit your search.");
+                    break;
+                case 5:
+
+                    System.out.println("Here are the courses that fit your current search filters.");
                     ArrayList<ArrayList<Class>> results = s.printCurrClasses();
 
                     System.out.println();
@@ -218,10 +248,12 @@ public class Main {
                     }
                     if(skip) continue;
 
-                    currentSchedule.addCourse(results.get(desiredClass-1).get(0).getIndexInDB());
+                    if(currentSchedule.addCourse(results.get(desiredClass-1).get(0).getIndexInDB())){
+                        System.out.println("Course added.");
+                    }
                     break;
 
-                case 5:
+                case 6:
                     if(currentSchedule.getClassesInSchedule().isEmpty()){
                         System.out.println("There are no classes in the schedule!");
                         continue;
@@ -247,11 +279,11 @@ public class Main {
                     }
 
                     break;
-                case 6:
+                case 7:
                     // TODO generate a list of majors to select from and give the option to
 
                     break;
-                case 7:
+                case 8:
                     System.out.println("Are you sure you want to exit and save? Type 1 for yes and 2 for no.");
                     int exitSave = 0;
                     while(true){
@@ -271,7 +303,7 @@ public class Main {
                         }
                     }
                     break;
-                case 8:
+                case 9:
                     System.out.println("Are you sure you want to exit without saving? Type 1 for yes and 2 for no.");
                     int exit = 0;
                     while(true){
@@ -300,7 +332,7 @@ public class Main {
         switch(searchValue){
             case 1:
                 System.out.println("Please input the name of the class...");
-                String name = input.next();
+                String name = input.nextLine();
                 s.modifyFilter(new FilterAttribute(FilterAttribute.Option.NAME, name));
                 break;
 
@@ -349,7 +381,7 @@ public class Main {
 
                 while(true){
                     System.out.println("Please input the end time for your search in military time. ");
-                    System.out.println("If you don't want a start time, put in 2400.");
+                    System.out.println("If you don't want a end time, put in 2400.");
                     String tempTime = input.next();
 
                     try{
@@ -381,12 +413,18 @@ public class Main {
             System.out.println("Type 1 to create a new schedule or 2 to open an old one");
             int choice = 0;
 
-            try {
-                choice = input.nextInt();
-                input.nextLine();
-            } catch (Exception e) {
-                input.nextLine();
+            while(true){
+                try {
+                    choice = input.nextInt();
+                    input.nextLine();
+
+                    if(choice == 1 || choice == 2) break;
+                    else System.out.println("Invalid input");
+                } catch (Exception e) {
+                    input.nextLine();
+                }
             }
+
 
 
             // If they chose one they want a new schedule
@@ -394,7 +432,7 @@ public class Main {
                 currentSchedule = new Schedule(database);
                 System.out.println("What would you like the name of this schedule to be?");
 
-                currentSchedule.setScheduleName(input.nextLine().trim());
+                currentSchedule.setScheduleName(input.nextLine());
                 break;
             } else if (choice == 2) {
                 ArrayList<Schedule> temp = u.getSavedSchedules();

@@ -43,8 +43,18 @@ public class Schedule {
 
     // this should look up the class in the db - if not found - exception
     // if found, create class object and check for conflicts in current using the Class.hasConflict
-    public void addCourse(int index){
+    // Returns false if there is a conflict, true if not.
+    public boolean addCourse(int index){
         ArrayList<Class> courseToAdd = database.get(index);
+
+        for(Class c : this.classesInSchedule){
+            for(Class x : courseToAdd){
+                if(c.hasConflict(x)) {
+                    System.out.println(x.getCourseName() + " cannot be added because it conflicts with " + c.getCourseName() + ".");
+                    return false;
+                }
+            }
+        }
 
         int classCredits = courseToAdd.get(0).getNumCredits();
         numCredits += classCredits;
@@ -52,6 +62,7 @@ public class Schedule {
         // Add the course to the list of classes in the schedule
         classesInSchedule.addAll(courseToAdd);
         numCourses++;
+        return true;
     }
 
     public void removeCourse(int index){
@@ -179,6 +190,8 @@ public class Schedule {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        sb.append(this.scheduleName + " \n");
+        sb.append("Number of Credits: " + numCredits + " \n\n");
 
         for(int i = 0; i < classesInSchedule.size(); i++){
             sb.append(classesInSchedule.get(i).toString() + "\n");
