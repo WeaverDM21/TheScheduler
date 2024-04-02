@@ -51,4 +51,8 @@ public class FilterAttribute {
         }
         return this.filterOption + "=" + this.stringVal;
     }
+
+    public boolean isEmpty(){
+        return (this.stringVal == null || stringVal.isEmpty()) && (this.intVal == 0 || this.intVal == 2400);
+    }
 }
