@@ -21,40 +21,21 @@ public class Search {
     }
 
     private void fillFilters(){
-        this.filters.put(
-                FilterAttribute.Option.NAME,
-                new FilterAttribute(FilterAttribute.Option.NAME, "")
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.DEPT,
-                new FilterAttribute(FilterAttribute.Option.DEPT, "")
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.INSTRUCTOR,
-                new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "")
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.DAY,
-                new FilterAttribute(FilterAttribute.Option.DAY, "")
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.START,
-                new FilterAttribute(FilterAttribute.Option.START, 0)
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.END,
-                new FilterAttribute(FilterAttribute.Option.END, 2400)
-        );
-
-        this.filters.put(
-                FilterAttribute.Option.CODE,
-                new FilterAttribute(FilterAttribute.Option.CODE, "")
-        );
+        for(FilterAttribute.Option option : FilterAttribute.Option.values())
+        {
+            if(option == FilterAttribute.Option.START)
+            {
+                filters.put(option, new FilterAttribute(option, 0));
+            }
+            else if(option == FilterAttribute.Option.END)
+            {
+                filters.put(option, new FilterAttribute(option, 2400));
+            }
+            else
+            {
+                filters.put(option, new FilterAttribute(option, ""));
+            }
+        }
     }
 
     private boolean meetsCriteria(Class c){
@@ -156,9 +137,28 @@ public class Search {
         return curClasses;
     }
 
-    private ArrayList<Class> removeFilter(){
+    private ArrayList<ArrayList<Class>> removeFilter(){
+        for(ArrayList<Class> cs : database){
+            boolean fitsAll = true;
+            for(Class c : cs){
 
-        return null;
+                for(FilterAttribute f : getActiveFilterAttributes()){
+                    if(!c.fits(f)){
+                        fitsAll = false;
+                        break;
+                    }
+                }
+                if(!fitsAll) break;
+            }
+
+            if(fitsAll) {
+                newClasses.add(cs);
+            }
+        }
+
+        curClasses = newClasses;
+        newClasses = new ArrayList<>();
+        return curClasses;
     }
 
     /*
@@ -186,6 +186,16 @@ public class Search {
             }
         }
         System.out.println();
+        return returnable;
+    }
+
+    public ArrayList<FilterAttribute> getActiveFilterAttributes(){
+        ArrayList<FilterAttribute> returnable = new ArrayList<>();
+        for(FilterAttribute f : filters.values()){
+            if(!f.isEmpty()){
+                returnable.add(f);
+            }
+        }
         return returnable;
     }
 
