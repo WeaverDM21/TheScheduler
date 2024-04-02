@@ -3,6 +3,8 @@ package edu.gcc.comp350.team;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -164,9 +166,6 @@ public class Main {
                             case 2:
                                 System.out.println("All search filters active: ");
                                 ArrayList<FilterAttribute> filters = s.printFilterAttributes();
-
-                                System.out.println();
-
                                 int remove = 0;
                                 while(true){
                                     System.out.println("Are there any search filters you want to remove? 1 if yes, 2 if no.");
@@ -203,6 +202,9 @@ public class Main {
                                     }
 
                                     s.removeFilter(filters.get(removeVal-1).getFilterOption());
+
+                                    System.out.println("All search filters active: ");
+                                    filters = s.printFilterAttributes();
 
                                     System.out.println("Are there more filters you want to remove? 1 if yes, 2 if no.");
 
@@ -356,15 +358,23 @@ public class Main {
 
             case 5:
                 System.out.println("Please input the days of the week in the form MWF, TR, ...");
-                System.out.println("If you want to ignore day of week, press enter");
-                String days = input.next().toUpperCase();
+                System.out.println("If you want to ignore day of week, enter 'no'");
+                String days = input.nextLine().toUpperCase();
+                if(days.equals("NO")){
+                    days = "";
+                }
 
                 int start;
                 int end;
                 while(true){
                     System.out.println("Please input the start time for your search in military time. \n");
-                    System.out.println("If you don't want a start time, put in a negative number.");
-                    String tempTime = input.next();
+                    System.out.println("If you don't want a start time, put in 'no'.");
+                    String tempTime = input.nextLine();
+                    if(tempTime.equalsIgnoreCase("no")){
+                        start = 0;
+                        break;
+                    }
+
                     try{
                         start = Integer.parseInt(tempTime);
                         break;
@@ -381,8 +391,12 @@ public class Main {
 
                 while(true){
                     System.out.println("Please input the end time for your search in military time. ");
-                    System.out.println("If you don't want a end time, put in 2400.");
+                    System.out.println("If you don't want a end time, put in 'no'.");
                     String tempTime = input.next();
+                    if(tempTime.equalsIgnoreCase("no")){
+                        end = 2400;
+                        break;
+                    }
 
                     try{
                         end = Integer.parseInt(tempTime);
