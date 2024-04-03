@@ -35,8 +35,6 @@ public class Search {
                 filters.put(option, new FilterAttribute(option, ""));
             }
         }
-    }
-
 
     // use this for dept, prof ... everything but time
     // 2 cases to address - add for first time, change
