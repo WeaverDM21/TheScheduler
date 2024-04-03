@@ -10,9 +10,9 @@ public class Class {
     private int beginTime; // Military Time
     private int endTime; // Military Time
     private String instructor;
-
     private String department;
     private int indexInDB;
+    public boolean fits;
 
 //    private String description;
 
@@ -65,6 +65,30 @@ public class Class {
 
     public String getCourseID() {
         return courseID;
+    }
+
+    public boolean fits(FilterAttribute f){
+        if (f.getFilterOption() == FilterAttribute.Option.START)
+            return this.beginTime >= f.getIntVal();
+
+        if (f.getFilterOption() == FilterAttribute.Option.END)
+            return this.endTime <= f.getIntVal();
+
+        if (f.getFilterOption() == FilterAttribute.Option.NAME)
+            return this.courseName.equalsIgnoreCase(f.getStringVal());
+
+        if (f.getFilterOption() == FilterAttribute.Option.DEPT)
+            return this.department.equalsIgnoreCase(f.getStringVal());
+
+        if (f.getFilterOption() == FilterAttribute.Option.INSTRUCTOR)
+            return this.instructor.equalsIgnoreCase(f.getStringVal());
+
+        if (f.getFilterOption() == FilterAttribute.Option.DAY)
+            return this.daysOfWeek.equalsIgnoreCase(f.getStringVal());
+
+        if (f.getFilterOption() == FilterAttribute.Option.CODE)
+            return this.courseID.equalsIgnoreCase(f.getStringVal());
+        return false;
     }
 
     @Override
