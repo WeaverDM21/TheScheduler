@@ -25,8 +25,7 @@ public class Schedule {
     }
 
     // Getter for scheduleName
-    public String getScheduleName()
-    {
+    public String getScheduleName() {
         return scheduleName;
     }
 

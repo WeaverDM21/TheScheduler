@@ -119,7 +119,7 @@ public class Search {
 
     /**
      * This method is a private method for when a user changes removes one FA
-     * and replaces it with another.
+     * and replaces it with another
      * @return ArrayList of classes that fit all search attributes
      */
     private ArrayList<ArrayList<Class>> removeFilter(){

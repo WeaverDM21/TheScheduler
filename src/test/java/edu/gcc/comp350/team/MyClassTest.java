@@ -11,11 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MyClassTest {
 
-//    @Test
-//    void addTwo(){
-//        assertEquals("", Class.getTimeOfDay());
-//    }
-
     // Testing Filters
     FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
     FilterAttribute instructor = new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "");

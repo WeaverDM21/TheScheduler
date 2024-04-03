@@ -99,7 +99,6 @@ public class Class {
 
     @Override
     public String toString() {
-
         return courseID + " " + courseName + " " + daysOfWeek + " " +
                 convertTime(beginTime) + "-" + convertTime(endTime) + " " + instructor;
     }
