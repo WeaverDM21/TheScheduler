@@ -25,9 +25,12 @@ public class Schedule {
     }
 
     // Getter for scheduleName
-    public String getScheduleName()
-    {
+    public String getScheduleName() {
         return scheduleName;
+    }
+
+    public int getNumCredits(){
+        return numCredits;
     }
 
     public void setScheduleName(String name){

@@ -11,11 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MyClassTest {
 
-//    @Test
-//    void addTwo(){
-//        assertEquals("", Class.getTimeOfDay());
-//    }
-
     // Testing Filters
     FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
     FilterAttribute instructor = new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "");
@@ -81,7 +76,7 @@ public class MyClassTest {
         assertEquals(filters.filterList().get(0).getIntVal(), 900);
         assertEquals(filters.filterList().get(1).getStringVal(), "stuff");
 
-        //TODO: Test the actual search with multiple filters
+        // Test the actual search with multiple filters
         Search filteredSearch = new Search(Main.database);
         FilterAttribute DEPT = new FilterAttribute(FilterAttribute.Option.DEPT, "COMP");
         FilterAttribute Start = new FilterAttribute(FilterAttribute.Option.START, 800);
@@ -99,32 +94,103 @@ public class MyClassTest {
 
     // Add Course
     @Test
-    void testAddFirstCourseToSchedule() {
+    void testAddFirstCourseToSchedule() throws Exception{
+        Main.generateDB();
+        Schedule sched = new Schedule(Main.database);
+        sched.addCourse(0);
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(3, sched.getNumCredits());
 
-//        schedule.addCourse(0);
-//        assertEquals(1, schedule.getNumCourses());
-//        assertEquals(3, schedule.getNumCredits());
+        Class c = Main.database.get(0).get(0);
+        assertEquals(c, sched.getClassesInSchedule().get(0));
+
     }
 
     @Test
-    void testAddAnotherCourseToSchedule() {
+    void testAddAnotherCourseToSchedule() throws Exception{
+        Main.generateDB();
+        Schedule sched = new Schedule(Main.database);
+        sched.addCourse(0);
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(3, sched.getNumCredits());
+        Class c = Main.database.get(0).get(0);
+        assertEquals(c, sched.getClassesInSchedule().get(0));
 
-//        schedule.addCourse(0);
-//        assertEquals(1, schedule.getNumCourses());
-//        assertEquals(3, schedule.getNumCredits());
+        sched.addCourse(4);
+        assertEquals(2, sched.getClassesInSchedule().size());
+        assertEquals(6, sched.getNumCredits());
+        Class x = Main.database.get(4).get(0);
+        assertEquals(x, sched.getClassesInSchedule().get(1));
     }
 
     @Test
-    void testRemoveCourseFromSchedule() {
+    void testRemoveCourseFromSchedule() throws Exception{
+        Main.generateDB();
+        Schedule sched = new Schedule(Main.database);
+        sched.addCourse(0);
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(3, sched.getNumCredits());
 
-//        schedule.removeCourse(0);
-//        assertEquals(1, schedule.getNumCourses());
-//        assertEquals(3, schedule.getNumCredits());
+
+        sched.removeCourse(0);
+        assertEquals(0, sched.getClassesInSchedule().size());
+        assertEquals(0, sched.getNumCredits());
+
+        sched.addCourse(2);
+        sched.addCourse(43); // This is a four credit class
+        assertEquals(2, sched.getClassesInSchedule().size());
+        assertEquals(7, sched.getNumCredits());
+
+        sched.removeCourse(1);
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(3, sched.getNumCredits());
     }
 
     @Test
-    void testOverlapofCourses() {
+    void testOverlapofCourses() throws Exception{
+        Main.generateDB();
+        Schedule sched = new Schedule(Main.database);
 
+        sched.addCourse(0);
+        sched.addCourse(5);
+        sched.addCourse(43);
+
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(3, sched.getNumCredits());
+
+        sched.removeCourse(0);
+
+        sched.addCourse(43);
+        sched.addCourse(0);
+        sched.addCourse(5);
+
+        assertEquals(1, sched.getClassesInSchedule().size());
+        assertEquals(4, sched.getNumCredits());
+
+
+        // Now we are adding a class that doesn't conflict with other one
+        sched.addCourse(13);
+        assertEquals(2, sched.getClassesInSchedule().size());
+        assertEquals(7, sched.getNumCredits());
+
+        // Try to add a class that conflcits with recent add
+        sched.addCourse(24);
+        assertEquals(2, sched.getClassesInSchedule().size());
+        assertEquals(7, sched.getNumCredits());
+
+        // If new addition is 'wrapped' in longer class
+        sched.addCourse(45);
+        sched.addCourse(171);
+        System.out.println(sched);
+        assertEquals(3, sched.getClassesInSchedule().size());
+        assertEquals(7, sched.getNumCredits());
+
+        // If new addition is much longer than previous class
+        sched.removeCourse(2);
+        sched.addCourse(171);
+        sched.addCourse(45);
+        assertEquals(3, sched.getClassesInSchedule().size());
+        assertEquals(10, sched.getNumCredits());
     }
 
     boolean searchTestString(ArrayList<ArrayList<Class>> classes, String filter, String type) {
