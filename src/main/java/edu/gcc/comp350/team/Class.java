@@ -67,35 +67,32 @@ public class Class {
         return courseID;
     }
 
+    /**
+     * Checks if a class fits within a FA's requirements
+     * @param f FilterAttribute that it will fit with
+     * @return true/false.
+     */
     public boolean fits(FilterAttribute f){
         if (f.getFilterOption() == FilterAttribute.Option.START)
-        {
             return this.beginTime >= f.getIntVal();
-        }
+
         if (f.getFilterOption() == FilterAttribute.Option.END)
-        {
             return this.endTime <= f.getIntVal();
-        }
+
         if (f.getFilterOption() == FilterAttribute.Option.NAME)
-        {
-            return this.courseName.equals(f.getStringVal());
-        }
+            return this.courseName.equalsIgnoreCase(f.getStringVal());
+
         if (f.getFilterOption() == FilterAttribute.Option.DEPT)
-        {
-            return this.department.equals(f.getStringVal());
-        }
+            return this.department.equalsIgnoreCase(f.getStringVal());
+
         if (f.getFilterOption() == FilterAttribute.Option.INSTRUCTOR)
-        {
-            return this.instructor.equals(f.getStringVal());
-        }
+            return this.instructor.equalsIgnoreCase(f.getStringVal());
+
         if (f.getFilterOption() == FilterAttribute.Option.DAY)
-        {
-            return this.daysOfWeek.equals(f.getStringVal());
-        }
+            return this.daysOfWeek.equalsIgnoreCase(f.getStringVal());
+
         if (f.getFilterOption() == FilterAttribute.Option.CODE)
-        {
-            return this.courseID.equals(f.getStringVal());
-        }
+            return this.courseID.equalsIgnoreCase(f.getStringVal());
         return false;
     }
 
