@@ -67,6 +67,11 @@ public class Class {
         return courseID;
     }
 
+    /**
+     * Checks if a class fits within a FA's requirements
+     * @param f FilterAttribute that it will fit with
+     * @return true/false.
+     */
     public boolean fits(FilterAttribute f){
         if (f.getFilterOption() == FilterAttribute.Option.START)
             return this.beginTime >= f.getIntVal();

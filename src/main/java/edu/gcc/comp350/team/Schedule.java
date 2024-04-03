@@ -119,6 +119,7 @@ public class Schedule {
             // Loop until end of file is reached
             while((line = br.readLine()) != null)
             {
+                // Just grab the first thing before comma to check if equal
                 Scanner lineScanner = new Scanner(line);
                 lineScanner.useDelimiter(",");
 

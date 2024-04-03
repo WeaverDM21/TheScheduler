@@ -55,6 +55,7 @@ public class Main {
             switch(choice){
                 case 1:
                     System.out.println("Do you want to continue without saving the current schedule?");
+
                     while(true) {
                         System.out.println("Type exactly YES to continue without saving. Type exactly SAVE to continue and save.");
                         String response = input.nextLine();
@@ -68,6 +69,7 @@ public class Main {
                         }
                     }
                     break;
+
                 case 2:
                     System.out.println("What would you like the name of the schedule to be? Enter a number to cancel updating the name.");
                     String name = input.nextLine();
@@ -82,6 +84,7 @@ public class Main {
                 case 3:
                     System.out.println(currentSchedule);
                     break;
+
                 case 4:
                     while(true){
                         int searchInput = 0;
@@ -122,6 +125,7 @@ public class Main {
                                 findSearchFilters(searchValue, input);
 
                                 break;
+
                             case 2:
                                 System.out.println("All search filters active: ");
                                 ArrayList<FilterAttribute> filters = s.printFilterAttributes();
@@ -183,6 +187,7 @@ public class Main {
                     }
 
                     break;
+
                 case 5:
 
                     System.out.println("Here are the courses that fit your current search filters.");
@@ -244,6 +249,7 @@ public class Main {
                     // TODO generate a list of majors to select from and give the option to
 
                     break;
+
                 case 8:
                     System.out.println("Are you sure you want to exit and save? Type 1 for yes and 2 for no.");
                     int exitSave = 0;
@@ -264,6 +270,7 @@ public class Main {
                         }
                     }
                     break;
+
                 case 9:
                     System.out.println("Are you sure you want to exit without saving? Type 1 for yes and 2 for no.");
                     int exit = 0;
