@@ -8,6 +8,7 @@ public class Search {
     private ArrayList<ArrayList<Class>> database;
     private ArrayList<ArrayList<Class>> curClasses;
     private ArrayList<ArrayList<Class>> newClasses;
+    private String curQueryText;
     private HashMap<FilterAttribute.Option, FilterAttribute> filters;
 
     public Search(ArrayList<ArrayList<Class>> db){
@@ -35,6 +36,17 @@ public class Search {
                 filters.put(option, new FilterAttribute(option, ""));
             }
         }
+    }
+
+    private boolean meetsCriteria(Class c){
+        // TODO: Implement
+        return false;
+    }
+
+    public ArrayList<Class> modifyQuery(String newQueryText){
+
+        return null;
+    }
 
     // use this for dept, prof ... everything but time
     // 2 cases to address - add for first time, change
@@ -53,13 +65,28 @@ public class Search {
 
         for(ArrayList<Class> cs : curClasses){
             for(Class c : cs){
-                if(c.fits(userFilter)){
-                    this.newClasses.add(cs);
-                    break;
+                if(userFilter.getFilterOption() == FilterAttribute.Option.NAME){
+                    if(c.getCourseName().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
+                }else if(userFilter.getFilterOption() == FilterAttribute.Option.DEPT){
+                    if(c.getDepartment().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
+                }else if(userFilter.getFilterOption() ==  FilterAttribute.Option.INSTRUCTOR){
+                    if(c.getInstructor().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
+                }else{
+                    if(c.getCourseID().equalsIgnoreCase(userFilter.getStringVal())){
+                        this.newClasses.add(cs);
+                    }
                 }
             }
         }
-
+        for(ArrayList<Class> c : newClasses){
+            System.out.println(c);
+        }
         this.curClasses = newClasses;
         newClasses = new ArrayList<>();
         return curClasses;
@@ -72,7 +99,7 @@ public class Search {
         FilterAttribute startTemp = this.filters.get(start.getFilterOption());
         FilterAttribute endTemp = this.filters.get(end.getFilterOption());
 
-        if(!dayTemp.getStringVal().equals("") || startTemp.getIntVal() != 0 || endTemp.getIntVal() != 2400) {
+        if(!dayTemp.getStringVal().equals("") || startTemp.getIntVal() != 0 || endTemp.getIntVal() != 2400){
             this.filters.put(day.getFilterOption(), day);
             this.filters.put(start.getFilterOption(), start);
             this.filters.put(end.getFilterOption(), end);
@@ -87,9 +114,7 @@ public class Search {
         for(ArrayList<Class> cs : this.curClasses){
             for(Class c : cs){
                 if(!day.getStringVal().isEmpty()){
-                    if(c.getDaysOfWeek().equals(day.getStringVal())
-                            && c.getBeginTime() >= start.getIntVal()
-                            && c.getEndTime() <= end.getIntVal()){
+                    if(c.getDaysOfWeek().equals(day.getStringVal()) && c.getBeginTime() >= start.getIntVal() && c.getEndTime() <= end.getIntVal()){
                         this.newClasses.add(cs);
                         break;
                     }
@@ -112,16 +137,11 @@ public class Search {
         return curClasses;
     }
 
-    /**
-     * This method is a private method for dealing with a situation where the remove
-     * a filter attribute within the context of adding a new filter
-     * @return List of classes that fit search attributes
-     */
     private ArrayList<ArrayList<Class>> removeFilter(){
         for(ArrayList<Class> cs : database){
             boolean fitsAll = true;
-
             for(Class c : cs){
+
                 for(FilterAttribute f : getActiveFilterAttributes()){
                     if(!c.fits(f)){
                         fitsAll = false;
@@ -141,43 +161,20 @@ public class Search {
         return curClasses;
     }
 
-    /**
-     * This is for the situation where they want to remove a filter attribute
-     * entirely
-     *
-     * @return List of classes that fit search attributes
+    /*
+    example: called like removeFiler(FilterAttribute.Option.DAY)
      */
-    public ArrayList<ArrayList<Class>> removeFilter(FilterAttribute.Option f){
+    // TODO Go through all the active search filters and take from database those that fit
+    public ArrayList<Class> removeFilter(FilterAttribute.Option f){
         if(f != FilterAttribute.Option.START && f != FilterAttribute.Option.END){
             this.filters.put(f, new FilterAttribute(f, ""));
-        } else {
+        }else{
             if(f == FilterAttribute.Option.START)
                 this.filters.put(f, new FilterAttribute(f, 0));
             else
                 this.filters.put(f, new FilterAttribute(f, 2400));
         }
-
-        for(ArrayList<Class> cs : database){
-            boolean fitsAll = true;
-
-            for(Class c : cs){
-                for(FilterAttribute fa : getActiveFilterAttributes()){
-                    if(!c.fits(fa)){
-                        fitsAll = false;
-                        break;
-                    }
-                }
-                if(!fitsAll) break;
-            }
-
-            if(fitsAll) {
-                newClasses.add(cs);
-            }
-        }
-
-        curClasses = newClasses;
-        newClasses = new ArrayList<>();
-        return curClasses;
+        return null;
     }
 
     public ArrayList<FilterAttribute> printFilterAttributes(){
