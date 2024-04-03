@@ -69,25 +69,33 @@ public class Class {
 
     public boolean fits(FilterAttribute f){
         if (f.getFilterOption() == FilterAttribute.Option.START)
+        {
             return this.beginTime >= f.getIntVal();
-
+        }
         if (f.getFilterOption() == FilterAttribute.Option.END)
+        {
             return this.endTime <= f.getIntVal();
-
+        }
         if (f.getFilterOption() == FilterAttribute.Option.NAME)
-            return this.courseName.equalsIgnoreCase(f.getStringVal());
-
+        {
+            return this.courseName.equals(f.getStringVal());
+        }
         if (f.getFilterOption() == FilterAttribute.Option.DEPT)
-            return this.department.equalsIgnoreCase(f.getStringVal());
-
+        {
+            return this.department.equals(f.getStringVal());
+        }
         if (f.getFilterOption() == FilterAttribute.Option.INSTRUCTOR)
-            return this.instructor.equalsIgnoreCase(f.getStringVal());
-
+        {
+            return this.instructor.equals(f.getStringVal());
+        }
         if (f.getFilterOption() == FilterAttribute.Option.DAY)
-            return this.daysOfWeek.equalsIgnoreCase(f.getStringVal());
-
+        {
+            return this.daysOfWeek.equals(f.getStringVal());
+        }
         if (f.getFilterOption() == FilterAttribute.Option.CODE)
-            return this.courseID.equalsIgnoreCase(f.getStringVal());
+        {
+            return this.courseID.equals(f.getStringVal());
+        }
         return false;
     }
 

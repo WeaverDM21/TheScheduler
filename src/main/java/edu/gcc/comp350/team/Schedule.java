@@ -1,12 +1,12 @@
 package edu.gcc.comp350.team;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Schedule {
     private ArrayList<ArrayList<Class>> database;
     private String scheduleName;
     private ArrayList<Class> classesInSchedule;
+    private int numCourses;
     private int numCredits;
 
 
@@ -27,6 +27,7 @@ public class Schedule {
     // Getter for scheduleName
     public String getScheduleName()
     {
+        System.out.println("Schedule Name is: " + scheduleName);
         return scheduleName;
     }
 
@@ -60,6 +61,7 @@ public class Schedule {
 
         // Add the course to the list of classes in the schedule
         classesInSchedule.addAll(courseToAdd);
+        numCourses++;
         return true;
     }
 
@@ -73,6 +75,7 @@ public class Schedule {
 
             // Remove the course from the list of classes in the schedule
             classesInSchedule.remove(index);
+            numCourses--;
         }
         else
         {
@@ -92,13 +95,6 @@ public class Schedule {
         try
         {
             // Add schedule to User's SavedSchedules ArrayList
-            ArrayList<Schedule> temp = s.getSavedSchedules();
-            for(int i = 0; i<s.getSavedSchedules().size(); i++){
-                if(temp.get(i).scheduleName.equals(this.scheduleName)){
-                    temp.remove(i);
-                    i--;
-                }
-            }
             s.addSchedule(this);
 
             // Load SavedSchedules.txt
@@ -119,10 +115,7 @@ public class Schedule {
             // Loop until end of file is reached
             while((line = br.readLine()) != null)
             {
-                Scanner lineScanner = new Scanner(line);
-                lineScanner.useDelimiter(",");
-
-                if(!lineScanner.next().equals(this.scheduleName))
+                if(!line.startsWith(this.scheduleName))
                 {
                     pw.write(line + "\n");
                     pw.flush();
@@ -197,15 +190,12 @@ public class Schedule {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("\n---------------------------------------------------------------------------------------------\n");
-        sb.append(this.scheduleName + "\n");
-        sb.append("Number of Credits: " + numCredits + "\n-----------------------\n");
+        sb.append(this.scheduleName + " \n");
+        sb.append("Number of Credits: " + numCredits + " \n\n");
 
         for(int i = 0; i < classesInSchedule.size(); i++){
             sb.append(classesInSchedule.get(i).toString() + "\n");
         }
-
-        sb.append("---------------------------------------------------------------------------------------------\n");
 
         return sb.toString();
     }
