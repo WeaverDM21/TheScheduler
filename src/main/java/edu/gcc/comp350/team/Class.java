@@ -1,6 +1,7 @@
 package edu.gcc.comp350.team;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Class {
     private String courseID; // eg COMP350A -- will be unique
@@ -169,4 +170,19 @@ public class Class {
     public boolean isSameClass(Class other){
         return this.courseID.equals(other.courseID) && this.instructor.equals(other.instructor);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Class aClass = (Class) o;
+        return numCredits == aClass.numCredits && beginTime == aClass.beginTime
+                && endTime == aClass.endTime && indexInDB == aClass.indexInDB
+                &&  Objects.equals(courseID, aClass.courseID)
+                && Objects.equals(courseName, aClass.courseName)
+                && Objects.equals(daysOfWeek, aClass.daysOfWeek)
+                && Objects.equals(instructor, aClass.instructor)
+                && Objects.equals(department, aClass.department);
+    }
+
 }

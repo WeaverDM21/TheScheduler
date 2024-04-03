@@ -30,6 +30,10 @@ public class Schedule {
         return scheduleName;
     }
 
+    public int getNumCredits(){
+        return numCredits;
+    }
+
     public void setScheduleName(String name){
         this.scheduleName = name;
     }
