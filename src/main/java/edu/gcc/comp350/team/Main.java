@@ -18,51 +18,11 @@ public class Main {
     // In simplest terms, solves the problem of the edge case of calc
     static ArrayList<ArrayList<Class>> database = new ArrayList<>();
     public static void main(String[] args) throws Exception{
-        generateDB();
         run();
-//        for(ArrayList<Class> cs : database){
-//            System.out.println(cs);
-//        }
-        //s = new Search(database);
-
-        // Testing savedSchedule
-        User us = new User();
-//        Schedule sch = new Schedule(database, "Schedule 1");
-//        sch.addCourse(5);
-//        sch.addCourse(9);
-//        sch.saveSchedule(us);
-//        sch.addCourse(20);
-//        sch.saveSchedule(us);
-//        Schedule sch2 = new Schedule(database, "Schedule 2");
-//        sch2.addCourse(11);
-//        sch2.addCourse(18);
-//        sch2.addCourse(90);
-//        sch2.saveSchedule(us);
-//        sch2.printSchedule();
-
-        //Testing loadSavedSchedules
-        us.loadSavedSchedules(database);
-        ArrayList<Schedule> s = us.getSavedSchedules();
-        for (Schedule s1 : s){
-            s1.printSchedule();
-        }
-
-
-//        FilterAttribute instructor = new FilterAttribute(FilterAttribute.Option.INSTRUCTOR, "Shane Brower");
-//        s.modifyFilter(instructor);
-//        System.out.println();
-        // talk to user and they add a filter example
-//        // add instructor
-//
-//        // date example
-//        FilterAttribute day = new FilterAttribute(FilterAttribute.Option.DAY, "");
-//
-//        FilterAttribute start = new FilterAttribute(FilterAttribute.Option.START, 800);
-//        FilterAttribute end = new FilterAttribute(FilterAttribute.Option.END, 915);
-//        s.modifyFilter(day, start, end);
     }
 
     private static void run() throws Exception{
+        generateDB();
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to Grove City Course Scheduler!");
 
@@ -74,15 +34,15 @@ public class Main {
 
         while(true){
             System.out.println("Type:\n" +
-                    "1 to change schedules\n" +
-                    "2 to update the name of the schedule\n" +
-                    "3 to see the current schedule\n" +
-                    "4 to update search filters\n" +
-                    "5 to add a class to the schedule\n" +
-                    "6 to remove a class from the schedule\n" +
-                    "7 to see a recommended course path for your major\n" +
-                    "8 to save your schedule and exit the program\n" +
-                    "9 to exit the program without saving");
+                    "1. to change schedules\n" +
+                    "2. to update the name of the schedule\n" +
+                    "3. to see the current schedule\n" +
+                    "4. to update search filters\n" +
+                    "5. to add a class to the schedule\n" +
+                    "6. to remove a class from the schedule\n" +
+                    "7. to see a recommended course path for your major\n" +
+                    "8. to save your schedule and exit the program\n" +
+                    "9. to exit the program without saving");
 
             int choice = 0;
             try{
@@ -97,11 +57,11 @@ public class Main {
                     System.out.println("Do you want to continue without saving the current schedule?");
                     while(true) {
                         System.out.println("Type exactly YES to continue without saving. Type exactly SAVE to continue and save.");
-                        String response = input.next();
-                        if(response.equals("YES")){
+                        String response = input.nextLine();
+                        if(response.equalsIgnoreCase("YES")){
                             openSchedule(input);
                             break;
-                        }else if(response.equals("SAVE")){
+                        }else if(response.equalsIgnoreCase("SAVE")){
                             currentSchedule.saveSchedule(u);
                             openSchedule(input);
                             break;
@@ -124,10 +84,9 @@ public class Main {
                     break;
                 case 4:
                     while(true){
-                        System.out.println("Type 1 to add a search filter, 2 to remove a search filter, 3 to cancel");
-
                         int searchInput = 0;
                         while(true){
+                            System.out.println("Type 1 to add a search filter, 2 to remove a search filter, 3 to cancel");
                             try{
                                 searchInput = input.nextInt();
                                 input.nextLine();
@@ -340,7 +299,7 @@ public class Main {
 
             case 2:
                 System.out.println("Please input the department you want to search by...");
-                String department = input.next();
+                String department = input.nextLine();
                 s.modifyFilter(new FilterAttribute(FilterAttribute.Option.DEPT, department));
                 break;
 
@@ -352,7 +311,7 @@ public class Main {
 
             case 4:
                 System.out.println("Please input the course code you want to search by");
-                String code = input.next();
+                String code = input.nextLine();
                 s.modifyFilter(new FilterAttribute(FilterAttribute.Option.CODE, code));
                 break;
 
@@ -570,9 +529,9 @@ public class Main {
             String fullName = firstName + " " + lastName;
 
             if(section.equals("O")){
-               days = "Online Class";
-               startTime = 800;
-               endTime = 2359;
+                days = "Online Class";
+                startTime = 800;
+                endTime = 2359;
             }
             Class tempClass = new Class(courseID, courseName, numCredits, days, startTime, endTime,
                     fullName, department);
