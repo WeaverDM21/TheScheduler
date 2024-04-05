@@ -455,8 +455,8 @@ public class Main {
                     while (true) {
                         try {
                             desiredSchedule = input.nextInt();
-                            input.nextLine();
-                            if(desiredSchedule>0 && desiredSchedule < temp.size())
+
+                            if(desiredSchedule > 0 && (desiredSchedule-1) < temp.size())
                                 break;
                             else
                                 throw new Exception("");
