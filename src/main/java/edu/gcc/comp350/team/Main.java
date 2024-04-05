@@ -40,9 +40,9 @@ public class Main {
                     "4. to update search filters\n" +
                     "5. to add a class to the schedule\n" +
                     "6. to remove a class from the schedule\n" +
-                    "7. to see a recommended course path for your major\n" +
-                    "8. to save your schedule and exit the program\n" +
-                    "9. to exit the program without saving");
+//                    "7. to see a recommended course path for your major\n" +
+                    "7. to save your schedule and exit the program\n" +
+                    "8. to exit the program without saving");
 
             int choice = 0;
             try{
@@ -245,12 +245,12 @@ public class Main {
                     }
 
                     break;
+//                case 7:
+//                    // TODO generate a list of majors to select from and give the option to
+//
+//                    break;
+
                 case 7:
-                    // TODO generate a list of majors to select from and give the option to
-
-                    break;
-
-                case 8:
                     System.out.println("Are you sure you want to exit and save? Type 1 for yes and 2 for no.");
                     int exitSave = 0;
                     while(true){
@@ -271,7 +271,7 @@ public class Main {
                     }
                     break;
 
-                case 9:
+                case 8:
                     System.out.println("Are you sure you want to exit without saving? Type 1 for yes and 2 for no.");
                     int exit = 0;
                     while(true){
