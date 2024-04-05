@@ -97,6 +97,7 @@ public class Main {
                                     break;
                                 }
                             }catch (Exception e){
+                                input.nextLine();
                                 System.out.println("Invalid input.");
                             }
                         }
@@ -134,9 +135,12 @@ public class Main {
                                     System.out.println("Are there any search filters you want to remove? 1 if yes, 2 if no.");
                                     try{
                                         remove = input.nextInt();
+                                        input.nextLine();
+
                                         if(remove == 1 || remove == 2) break;
                                         else System.out.println("Invalid input.");
                                     }catch (Exception e){
+                                        input.nextLine();
                                         System.out.println("Invalid input.");
                                     }
                                 }
@@ -157,9 +161,11 @@ public class Main {
                                     while(true){
                                         try{
                                             removeVal = input.nextInt();
+                                            input.nextLine();
                                             if(removeVal > 0 && removeVal <= filters.size()) break;
                                             else System.out.println("Invalid input.");
                                         }catch (Exception e){
+                                            input.nextLine();
                                             System.out.println("Invalid input.");
                                         }
                                     }
@@ -174,9 +180,11 @@ public class Main {
                                     while(true){
                                         try{
                                             remove = input.nextInt();
+                                            input.nextLine();
                                             if(remove == 1 || remove == 2) break;
                                             else System.out.println("Invalid input.");
                                         }catch (Exception e){
+                                            input.nextLine();
                                             System.out.println("Invalid input.");
                                         }
                                     }
@@ -202,6 +210,7 @@ public class Main {
                     while(true){
                         try{
                             desiredClass = input.nextInt();
+                            input.nextLine();
                             if(desiredClass == -1) {
                                 skip = true;
                                 break;
@@ -209,6 +218,7 @@ public class Main {
                             if(desiredClass > 0 && desiredClass <= results.size()) break;
                             else System.out.println("Invalid input.");
                         }catch(Exception e){
+                            input.nextLine();
                             System.out.println("Invalid input.");
                         }
                     }
@@ -233,6 +243,7 @@ public class Main {
                     while(true){
                         try{
                             classToRemove = input.nextInt();
+                            input.nextLine();
                             if(classToRemove > 0 && classToRemove <= currentSchedule.getClassesInSchedule().size()){
                                 currentSchedule.removeCourse(classToRemove-1);
                                 break;
@@ -240,6 +251,7 @@ public class Main {
                                 System.out.println("Invalid input");
                             }
                         }catch (Exception e){
+                            input.nextLine();
                             System.out.println("Invalid input");
                         }
                     }
@@ -444,8 +456,12 @@ public class Main {
                         try {
                             desiredSchedule = input.nextInt();
                             input.nextLine();
-                            break;
+                            if(desiredSchedule>0 && desiredSchedule < temp.size())
+                                break;
+                            else
+                                throw new Exception("");
                         } catch (Exception e) {
+                            input.nextLine();
                             System.out.println("Please select a valid schedule");
                         }
                     }
