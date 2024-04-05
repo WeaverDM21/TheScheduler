@@ -277,6 +277,7 @@ public class Main {
                     while(true){
                         try{
                             exit = input.nextInt();
+                            input.nextLine();
                             if(exit == 1){
                                 System.out.println("Exiting");
                                 return;
@@ -286,6 +287,7 @@ public class Main {
                                 System.out.println("Invalid input.");
                             }
                         }catch (Exception e){
+                            input.nextLine();
                             System.out.println("invalid input ");
                         }
                     }
